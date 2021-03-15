@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 
 const HtmlHead: React.FC = () => {
-  const pageTitle = "Next.js Typescript Tailwind Boilerplate";
+  const pageTitle = "Next.js TypeScript Tailwind Boilerplate";
 
   return (
     <Head>

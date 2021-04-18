@@ -5,15 +5,23 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        // sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+        display: ["Rubik", "ui-sans-serif", "sans-serif"],
+      },
+      height: {
+        "cover-normal": "14rem",
+        "cover-big": "28rem",
+      },
       colors: {
-        "light-blue": colors.lightBlue,
         orange: colors.orange,
-        cyan: colors.cyan,
       },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      translate: ["group-hover"],
+    },
   },
   plugins: [],
 };

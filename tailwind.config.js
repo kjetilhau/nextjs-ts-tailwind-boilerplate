@@ -1,10 +1,12 @@
-const colors = require("tailwindcss/colors");
-
 module.exports = {
-  purge: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundColor: {
+        facebook: "#1877F2",
+        twitter: "#1DA1F2",
+        reddit: "#FF5700",
+      },
       fontFamily: {
         // sans: ['Roboto', ...defaultTheme.fontFamily.sans],
         display: ["Rubik", "ui-sans-serif", "sans-serif"],
@@ -13,15 +15,6 @@ module.exports = {
         "cover-normal": "14rem",
         "cover-big": "28rem",
       },
-      colors: {
-        orange: colors.orange,
-      },
     },
   },
-  variants: {
-    extend: {
-      translate: ["group-hover"],
-    },
-  },
-  plugins: [],
 };

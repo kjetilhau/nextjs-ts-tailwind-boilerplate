@@ -1,5 +1,7 @@
 import Document, { DocumentContext, Html, Head, Main, NextScript } from "next/document";
 
+const googleFontsUrl = "https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap";
+
 class BaseDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -24,6 +26,7 @@ class BaseDocument extends Document {
           `,
             }}
           />
+          <link rel="stylesheet" href={googleFontsUrl} />
         </Head>
 
         <body>

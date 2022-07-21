@@ -2,49 +2,53 @@ const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
 const { createSecureHeaders } = require("next-secure-headers");
 
-module.exports = withPWA({
-  // webpack: (config, { dev, isServer }) => {
-  //   // Replace React with Preact only in client production build
-  //   if (!dev && !isServer) {
-  //     Object.assign(config.resolve.alias, {
-  //       react: "preact/compat",
-  //       "react-dom/test-utils": "preact/test-utils",
-  //       "react-dom": "preact/compat",
-  //     });
-  //   }
+const securityHeaders = createSecureHeaders({
+  contentSecurityPolicy: {
+    // directives: {
+    //   defaultSrc: "'self'",
+    //   connectSrc: [
+    //     "'self'",
+    //     "www.google-analytics.com",
+    //     "www.googletagmanager.com",
+    //     "https://fonts.googleapis.com",
+    //     "https://fonts.gstatic.com",
+    //     "https://vitals.vercel-insights.com",
+    //   ],
+    //   scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "www.google-analytics.com", "www.googletagmanager.com"],
+    //   styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    //   fontSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+    //   imgSrc: ["'self'", "data:", "www.google-analytics.com"],
+    // },
+    // reportOnly: true,
+  },
+  referrerPolicy: "no-referrer-when-downgrade",
+}).concat([
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=()", // , interest-cohort=()
+  },
+]);
 
-  //   return config;
-  // },
+module.exports = withPWA({
+  webpack: (config, { dev, isServer }) => {
+    // Replace React with Preact only in client production build
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+      });
+    }
+
+    return config;
+  },
   async headers() {
     return [
       {
         source: "/(.*)",
-        headers: createSecureHeaders({
-          contentSecurityPolicy: {
-            // directives: {
-            //   defaultSrc: "'self'",
-            //   connectSrc: [
-            //     "'self'",
-            //     "www.google-analytics.com",
-            //     "www.googletagmanager.com",
-            //     "https://fonts.googleapis.com",
-            //     "https://fonts.gstatic.com",
-            //     "https://vitals.vercel-insights.com",
-            //   ],
-            //   scriptSrc: ["'self'", "'unsafe-inline'", "www.google-analytics.com", "www.googletagmanager.com"],
-            //   styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-            //   fontSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-            //   imgSrc: ["'self'", "data:", "www.google-analytics.com"],
-            // },
-            // reportOnly: true,
-          },
-          referrerPolicy: "no-referrer-when-downgrade",
-        }),
+        headers: securityHeaders,
       },
     ];
-  },
-  future: {
-    webpack5: true,
   },
   reactStrictMode: true,
   poweredByHeader: false,

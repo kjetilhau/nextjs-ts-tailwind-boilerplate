@@ -1,9 +1,9 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import Footer from "../Footer/Footer";
-import Head from "../Head/Head";
+import Head from "next/head";
 import Header from "../Header/Header";
 
-const Layout: React.FC = (props) => {
+const Layout: React.FC<PropsWithChildren<{}>> = (props) => {
   return (
     <>
       <Head>
@@ -19,12 +19,12 @@ const Layout: React.FC = (props) => {
         <meta name="theme-color" content="#FFF"></meta>
       </Head>
 
-      <div className="flex flex-col min-h-screen justify-between bg-gray-800">
+      <div className="flex flex-col justify-between min-h-screen bg-gray-800">
         <header className="h-10 bg-gray-700">
           <Header />
         </header>
 
-        <main className="mb-auto flex-grow">{props.children}</main>
+        <main className="flex-grow mb-auto">{props.children}</main>
 
         <footer className="h-10 bg-gray-700">
           <Footer />
